@@ -1,11 +1,18 @@
 oms: 1
 lifecycle:
   startup:
-    command: ["python", "-m", "oms.mongodb.app"]
+    command: ['python', '-m', 'oms.mongodb.app']
 info:
   version: 1.0.0
   title: MongoDB
-  description: This is a mongodb service
+  description: Access a MongoDB server
+  contact:
+    name: Open Microservices
+    url: 'https://openmicroservices.org'
+    email: core@openmicroservices.org
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
 volumes:
   db:
     target: /db
@@ -17,64 +24,64 @@ health:
 
 x-types:
   col: &collection
-      collection:
-        help: The MongoDB collection to use
-        required: true
-        in: requestBody
-        type: string
+    collection:
+      help: The MongoDB collection to use
+      required: true
+      in: requestBody
+      type: string
   query: &query
-      query:
-        help: The MongoDB search query
-        required: true
-        in: requestBody
-        type: map
-        map:
-          keys:
-            type: string
-          values:
-            type: any
+    query:
+      help: The MongoDB search query
+      required: true
+      in: requestBody
+      type: map
+      map:
+        keys:
+          type: string
+        values:
+          type: any
   value: &value
-      value:
-        help: The value to insert into MongoDB
-        required: true
-        in: requestBody
-        # https://github.com/storyscript/storyscript/issues/1317
-        type: any
+    value:
+      help: The value to insert into MongoDB
+      required: true
+      in: requestBody
+      # https://github.com/storyscript/storyscript/issues/1317
+      type: any
   values: &values
-      values:
-        help: The values to insert into MongoDB.
-        required: true
-        in: requestBody
-        type: list
-        list:
-          elements:
-            type: map
-            map:
-              keys:
-                type: string
-              values:
-                type: any
+    values:
+      help: The values to insert into MongoDB.
+      required: true
+      in: requestBody
+      type: list
+      list:
+        elements:
+          type: map
+          map:
+            keys:
+              type: string
+            values:
+              type: any
   upsert: &upsert
-      upsert:
-        help: |
-          If set to 'true', creates a new document when no document matches
-          the query criteria.
-        required: false
-        in: requestBody
-        type: boolean
+    upsert:
+      help: |
+        If set to 'true', creates a new document when no document matches
+        the query criteria.
+      required: false
+      in: requestBody
+      type: boolean
 
   updateOutput: &updateOutput
-      output:
-        type: object
-        properties:
-          matchedCount:
-            type: int
-          modifiedCount:
-            type: int
-          upsertedId:
-            type: string
-          acknowledged:
-            type: boolean
+    output:
+      type: object
+      properties:
+        matchedCount:
+          type: int
+        modifiedCount:
+          type: int
+        upsertedId:
+          type: string
+        acknowledged:
+          type: boolean
 
   json: &jsonHTTP
     port: 8000
